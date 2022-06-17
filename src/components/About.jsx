@@ -13,7 +13,7 @@ const About = () => {
                     <p>Lorem200</p>
                 </Col>
                 <Col md={6}>
-                    <p>200</p>
+                    <p>Lorem200</p>
                 </Col>
             </Row>
             <Row>

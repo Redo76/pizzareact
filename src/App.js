@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <TopBar />
       <Routes>
-        <Route path='./components/About' element={<About />} />
+        <Route path='/About' element={<About />} />
       </Routes>
     </BrowserRouter>
   );
