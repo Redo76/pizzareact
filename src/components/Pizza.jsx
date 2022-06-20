@@ -1,17 +1,25 @@
 import React, {useState} from 'react'
-import { Card, Button, Row, Col } from 'react-bootstrap'
+import { Card, Button, Row, Col, Modal } from 'react-bootstrap'
 
 function Pizza(props) {
+    const [taille, setTaille] = useState('small');
+    const [quantite, setQuantite] = useState(1);
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
   return (
-    <Card style={{ width: '18rem' }}>
-    <Card.Img variant="top" src={props.lapizza.image} />
+    <>
+    <Card style={{ width: '18rem',}} >
+    <Card.Img variant="top" src={props.lapizza.image} onClick={handleShow} className="cursor"/>
     <Card.Body>
         <Card.Title>{props.lapizza.name}</Card.Title>
         <Card.Text>
             <Row>
                 <Col>
                     <h6>
-                        Taille : <select>
+                        Taille : <select value={taille} onChange={(e)=> setTaille(e.target.value)}>
                                     {props.lapizza.varients.map(taille => (
                                         <option value={taille}>
                                             {taille}
@@ -22,7 +30,7 @@ function Pizza(props) {
                 </Col>
                 <Col>
                     <h6>
-                        Quantité : <select>
+                        Quantité : <select value={quantite} onChange={(e)=> setQuantite(e.target.value)}>
                                     {[...Array(10).keys()].map((v, i) => (
                                         <option value={i + 1}>
                                             {i + 1}
@@ -32,11 +40,29 @@ function Pizza(props) {
                     </h6>
                 </Col>
             </Row>
+            <Row>
+                <Col>
+                    Prix : {props.lapizza.prices[0][taille] * quantite} €
+                </Col>
+                <Col>
+                    <Button className='bg-warning text-light'>Add</Button>
+                </Col>
+            </Row>
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
     </Card.Body>
     </Card>
 
+    <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+            <Modal.Title>{props.lapizza.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <img src={props.lapizza.image} className="w-100 mb-4"/>
+            <h4>Description</h4>
+            <p>{props.lapizza.description}</p>
+        </Modal.Body>
+        </Modal>
+    </>                                    
   )
 }
 
