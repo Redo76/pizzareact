@@ -1,14 +1,25 @@
-import React from 'react'
-import AllPizza from "../pizza-data";
+import React, {useEffect, useState} from 'react'
 import { Container, Row, Col } from "react-bootstrap";
 import Pizza from '../components/Pizza';
+import axios from 'axios';
 
 const HomeScreen = () => {
+    const [data, setData] = useState([]);
+
+    useEffect(() =>{
+        const fetchData = async () => {
+            let fetch = await axios('http://localhost:8080/pizzas');
+            console.log(fetch.data);
+            setData(fetch.data);
+        }
+        fetchData();
+    }, [])
+
   return (
     <>
         <Container>
             <Row>
-                {AllPizza.map( pizza => (
+                {data.map( pizza => (
                     <Col md={4}>
                         <Pizza lapizza={pizza}/>
                     </Col>

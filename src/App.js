@@ -7,6 +7,7 @@ import Contact from './components/Contact';
 import Policy from './components/Policy';
 import NavBar from './components/NavBar';
 import HomeScreen from './screens/HomeScreen';
+import CartScreen from './screens/CartScreen';
 
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path='/About' element={<About />} />
         <Route path='/Contact' element={<Contact />}/>
         <Route path='/Policy' element={<Policy />}/>
+        <Route path='/Cart' element={<CartScreen/>}/>
       </Routes>
     </BrowserRouter>
   );
