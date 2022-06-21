@@ -15,13 +15,39 @@ function Product(props) {
             let fetch = await axios("http://localhost:8080/pizzas/" + props.lapizza._id);
             setData(fetch.data);
             setQuantite(props.lapizza.quantity)
+            setTaille(props.lapizza.varients)
         }
         fetchData()
-    }, [])
+    }, [props.delete])
 
     const updatePizza = (e) =>{
+        let cart = JSON.parse( localStorage.getItem("cart"));
+        let alreadyPizza = cart.find(pizza => (pizza._id == props.lapizza._id) && (pizza.varients == taille))
+        if (alreadyPizza) {
+            alreadyPizza.quantity = parseInt(e.target.value);
+            localStorage.setItem("cart", JSON.stringify(cart))
+        }
+        setQuantite(e.target.value);
+        console.table(cart);
+        console.log(alreadyPizza.quantity);
         
+
+        // useEffect(()=>{
+        //     const suppression = props.;
+        // }, [props.deletePizza()])
     } 
+
+    const deletePizza = () =>{
+        let cart = JSON.parse( localStorage.getItem("cart"));
+        let alreadyPizza = cart.find(pizza => (pizza._id == props.lapizza._id) && (pizza.varients == taille))
+        console.log(alreadyPizza);
+        let newCart =cart.filter( pizza => pizza != alreadyPizza)
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        props.remove(newCart);
+
+        console.table(newCart);
+    }
+
 
   return (
     <>
@@ -36,7 +62,7 @@ function Product(props) {
                     </Col>
                     <Col>
                         <h6>
-                            Quantité : <select value={quantite} onChange={(e)=> setQuantite(e.target.value)}>
+                            Quantité : <select value={quantite} onChange={(e)=> updatePizza(e)}>
                                         {[...Array(10).keys()].map((v, i) => (
                                             <option value={i + 1}>
                                                 {i + 1}
@@ -49,10 +75,9 @@ function Product(props) {
                 <Row>
                     <Col>
                         Prix : { data.prices ? data.prices[0][taille] * parseInt(quantite) : ""} €
-                        {console.log(quantite)}
                     </Col>
                     <Col>
-                        <Button className='bg-danger text-light'><FaTrash/></Button>
+                        <Button className='bg-danger text-light' onClick={deletePizza}><FaTrash/></Button>
                     </Col>
                 </Row>
             </Card.Text>

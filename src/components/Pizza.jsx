@@ -18,11 +18,13 @@ function Pizza(props) {
             "varients": taille,
             "quantity" : parseInt(quantite)
         };
-        
+
 
         let alreadyPizza = currentCart.find(pizza => (pizza._id == props.lapizza._id) && (pizza.varients == taille));
         if (alreadyPizza) {
-            alreadyPizza.quantity = alreadyPizza.quantity + parseInt(quantite);
+            if (alreadyPizza.quantity + parseInt(quantite) <= 10) {
+                alreadyPizza.quantity = alreadyPizza.quantity + parseInt(quantite);
+            }
         }
         else{
             currentCart.push(a);
