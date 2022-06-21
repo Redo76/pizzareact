@@ -15,6 +15,13 @@ const HomeScreen = () => {
         fetchData();
     }, [])
 
+    useEffect(() =>{
+        let cart = localStorage.getItem("cart")
+        if (!cart) {
+            localStorage.setItem('cart', JSON.stringify([]));
+        }
+        }, [])
+
   return (
     <>
         <Container>

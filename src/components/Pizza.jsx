@@ -9,6 +9,31 @@ function Pizza(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+
+    const addPizza = () =>{
+        let currentCart = JSON.parse( localStorage.getItem("cart"));
+        let a = {
+            "_id" : props.lapizza._id,
+            "name": props.lapizza.name,
+            "varients": taille,
+            "quantity" : parseInt(quantite)
+        };
+        
+
+        let alreadyPizza = currentCart.find(pizza => (pizza._id == props.lapizza._id) && (pizza.varients == taille));
+        if (alreadyPizza) {
+            alreadyPizza.quantity = alreadyPizza.quantity + parseInt(quantite);
+        }
+        else{
+            currentCart.push(a);
+        }
+
+
+        localStorage.setItem("cart", JSON.stringify(currentCart))
+        
+        console.table(currentCart);
+    }
+
   return (
     <>
     <Card style={{ width: '18rem',}} >
@@ -45,7 +70,7 @@ function Pizza(props) {
                     Prix : {props.lapizza.prices[0][taille] * quantite} €
                 </Col>
                 <Col>
-                    <Button className='bg-warning text-light'>Add</Button>
+                    <Button className='bg-warning text-light' onClick={addPizza}>Add</Button>
                 </Col>
             </Row>
         </Card.Text>

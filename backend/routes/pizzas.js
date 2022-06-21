@@ -10,4 +10,16 @@ router.get('/', function (req, res) {
     });
   });
 
+
+router.get("/:id", function(req, res){
+  const db = req.db;
+
+  const pizzaToFind = req.params.id;
+
+  const collection = db.get("Pizzas");
+  collection.findOne({"_id": pizzaToFind},{},function(e,docs){
+    res.json(docs);
+  });
+});
+
 module.exports = router;
