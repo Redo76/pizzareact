@@ -42,7 +42,6 @@ function CartScreen() {
             }
             setTotal(somme);
         }
-        console.log(456);
     },[count])
 
     return (

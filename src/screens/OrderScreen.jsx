@@ -1,9 +1,24 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Table } from 'react-bootstrap';
+import { Container, Table } from 'react-bootstrap';
+import Paypal from '../components/Paypal';
+
+// const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
 
 function OrderScreen() {
     const [cart, setCart] = useState([]);
+    const [data, setData] = useState([]);
+    const [total, setTotal] = useState([]);
+    
 
+    useEffect(() =>{
+        const fetchData = async () => {
+            let fetch = await axios('http://localhost:8080/pizzas');
+            console.log(fetch.data);
+            setData(fetch.data);
+        }
+        fetchData();
+    }, [])
 
     useEffect(() =>{
         let currentCart = JSON.parse(localStorage.getItem("cart"));
@@ -11,16 +26,32 @@ function OrderScreen() {
         console.log(cart);
     }, [])
 
+    useEffect(()=>{
+        let currentCart = JSON.parse(localStorage.getItem("cart"));
+        let somme = 0;
+        if (data.length > 0) {
+            let newCart =[];
+            for (const pizza of currentCart) {
+                let a =  data.find(element => element.name == pizza.name)
+                console.table(pizza);
+                somme += pizza.quantity * parseInt(a.prices[0][pizza.varients]);
+                pizza.prix = parseInt(a.prices[0][pizza.varients]);
+                newCart.push(pizza);
+            }
+            setTotal(somme);
+            setCart(newCart);
+        }
+    },[])
 
   return (
     <>
         <Container className='d-flex'>
             <div>
                 <div>
-                    <h2 className='mb-3'>Votre adresse :</h2>
+                    <h2 className='mb-2'>Votre adresse :</h2>
                     <p className='mb-0'>17 Rue des 4 Vents</p>
                     <p className='mb-0'>75006 Paris</p>
-                    <p >Tél : 01 42 05 09 09</p>
+                    <p>Tél : 01 42 05 09 09</p>
                 </div>
                 <div>
                     <h2 className='mb-4'>Récapitulatif de commande :</h2>
@@ -29,27 +60,27 @@ function OrderScreen() {
                             <tr>
                                 <th className="text-center">Nom de la pizza</th>
                                 <th className="text-center">Quantité</th>
+                                <th className="text-center">Taille</th>
                                 <th className="text-center">Prix unitaire</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Télephone</td>
-                                <td>01 23 45 67 98</td>
+                        {cart.map( (pizza , i) => (
+                            <tr key={i}>
+                                <td>{pizza.name}</td>
+                                <td className="text-center">{pizza.quantity}</td>
+                                <td className="text-center">{pizza.varients}</td>
+                                <td className="text-center">{pizza.prix ? pizza.prix : "--"} </td>
+                                {console.log(data.find(element => element == pizza.name))}
                             </tr>
+                        ))}
                             <tr>
-                                <td>2</td>
-                                <td>Portable</td>
-                                <td>01 98 76 54 32</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Email</td>
-                                <td>contact@pizza-delicious.com</td>
+                                <td>Total à payer :</td>
+                                <td className="text-center" colSpan={3}>{total ? total : "--"} €</td>
                             </tr>
                         </tbody>
                     </Table>
+                    <Paypal/>
                 </div>
             </div>
         </Container>
