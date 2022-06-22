@@ -26,8 +26,8 @@ const HomeScreen = () => {
     <>
         <Container>
             <Row>
-                {data.map( pizza => (
-                    <Col md={4}>
+                {data.map( (pizza , i) => (
+                    <Col key={i} md={4}>
                         <Pizza lapizza={pizza}/>
                     </Col>
                 ))}

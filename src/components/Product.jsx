@@ -6,45 +6,43 @@ import { FaTrash } from "react-icons/fa";
 
 function Product(props) {
 
-    const [taille, setTaille] = useState("small");
-    const [quantite, setQuantite] = useState(0);
+    const [taille, setTaille] = useState(props.lapizza.varients);
+    const [quantite, setQuantite] = useState(props.lapizza.quantity);
     const [data, setData] = useState([]);
 
     useEffect(() =>{
         const fetchData = async () =>{
             let fetch = await axios("http://localhost:8080/pizzas/" + props.lapizza._id);
             setData(fetch.data);
-            setQuantite(props.lapizza.quantity)
             setTaille(props.lapizza.varients)
+            setQuantite(parseInt(quantite))        
         }
         fetchData()
-    }, [props.delete])
+    }, [props])
 
     const updatePizza = (e) =>{
         let cart = JSON.parse( localStorage.getItem("cart"));
         let alreadyPizza = cart.find(pizza => (pizza._id == props.lapizza._id) && (pizza.varients == taille))
-        if (alreadyPizza) {
             alreadyPizza.quantity = parseInt(e.target.value);
             localStorage.setItem("cart", JSON.stringify(cart))
-        }
-        setQuantite(e.target.value);
         console.table(cart);
-        console.log(alreadyPizza.quantity);
+        setQuantite(e.target.value);
+        props.remove();
         
-
-        // useEffect(()=>{
-        //     const suppression = props.;
-        // }, [props.deletePizza()])
     } 
 
     const deletePizza = () =>{
         let cart = JSON.parse( localStorage.getItem("cart"));
+        console.log(props.lapizza.varients);
+
         let alreadyPizza = cart.find(pizza => (pizza._id == props.lapizza._id) && (pizza.varients == taille))
         console.log(alreadyPizza);
-        let newCart =cart.filter( pizza => pizza != alreadyPizza)
-        localStorage.setItem("cart", JSON.stringify(newCart));
-        props.remove(newCart);
 
+        let newCart =cart.filter( pizza => pizza != alreadyPizza);
+
+        localStorage.setItem("cart", JSON.stringify(newCart));
+
+        props.updateCart(newCart);
         console.table(newCart);
     }
 
