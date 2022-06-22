@@ -17,7 +17,7 @@ function NavBar() {
                         <Nav.Link>Login</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to={"/Cart"}>
-                        <Nav.Link>Panier</Nav.Link>
+                        <Nav.Link>Cart</Nav.Link>
                     </LinkContainer>
                 </Nav>
             </Navbar.Collapse>

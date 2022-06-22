@@ -2,6 +2,7 @@ import React, {useState, useEffect, } from 'react'
 import {Container, Row, Col, Table } from 'react-bootstrap'
 import axios from 'axios';
 import Product from '../components/Product';
+import { LinkContainer } from 'react-router-bootstrap';
 
 function CartScreen() {
     const [data, setData] = useState([]);
@@ -52,7 +53,12 @@ function CartScreen() {
                     <Product key={i} lapizza={product} remove={remove} updateCart={updateCart}/>
                 ))}
             </Row>
-            <h4>Prix total : {total} €</h4>
+            <div className='d-flex justify-content-end align-items-center my-3'>
+                <h4 className='mx-5'>Prix total : {total} €</h4>
+                <LinkContainer to={"/Order"}>
+                    <button className='btn btn-primary'>Submit order</button>
+                </LinkContainer>
+            </div>
         </Container>
     </>
   )
