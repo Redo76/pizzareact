@@ -8,7 +8,7 @@ import Paypal from '../components/Paypal';
 function OrderScreen() {
     const [cart, setCart] = useState([]);
     const [data, setData] = useState([]);
-    const [total, setTotal] = useState([]);
+    const [total, setTotal] = useState(null);
     
 
     useEffect(() =>{
@@ -41,7 +41,8 @@ function OrderScreen() {
             setTotal(somme);
             setCart(newCart);
         }
-    },[])
+    },[data])
+
 
   return (
     <>
@@ -80,7 +81,7 @@ function OrderScreen() {
                             </tr>
                         </tbody>
                     </Table>
-                    <Paypal/>
+                    {total ? <Paypal amount={total}/> : ""}
                 </div>
             </div>
         </Container>

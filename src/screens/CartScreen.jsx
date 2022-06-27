@@ -40,9 +40,9 @@ function CartScreen() {
                 console.table(pizza);
                 somme += pizza.quantity * parseInt(a.prices[0][pizza.varients]);
             }
-            setTotal(somme);
         }
-    },[count])
+        setTotal(somme);
+    },[count, data])
 
     return (
         <>
@@ -55,7 +55,7 @@ function CartScreen() {
             <div className='d-flex justify-content-end align-items-center my-3'>
                 <h4 className='mx-5'>Prix total : {total} €</h4>
                 <LinkContainer to={"/Order"}>
-                    <button className='btn btn-primary'>Submit order</button>
+                    <button className='btn btn-primary'>Confirmer la commande</button>
                 </LinkContainer>
             </div>
         </Container>
