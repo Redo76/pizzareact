@@ -9,7 +9,8 @@ import NavBar from './components/NavBar';
 import HomeScreen from './screens/HomeScreen';
 import CartScreen from './screens/CartScreen';
 import OrderScreen from './screens/OrderScreen';
-
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 
 function App() {
@@ -22,8 +23,10 @@ function App() {
         <Route path='/About' element={<About />} />
         <Route path='/Contact' element={<Contact />}/>
         <Route path='/Policy' element={<Policy />}/>
-        <Route path='/Cart' element={<CartScreen/>}/>
-        <Route path='/Order' element={<OrderScreen/>}/>
+        <Route path='/Cart' element={<CartScreen />}/>
+        <Route path='/Order' element={<OrderScreen />}/>
+        <Route path='/Login' element={<Login />}/>
+        <Route path='/Signup' element={<Signup />}/>
       </Routes>
     </BrowserRouter>
   );

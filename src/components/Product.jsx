@@ -15,7 +15,7 @@ function Product(props) {
             let fetch = await axios("http://localhost:8080/pizzas/" + props.lapizza._id);
             setData(fetch.data);
             setTaille(props.lapizza.varients)
-            setQuantite(parseInt(quantite))        
+            setQuantite(parseInt(props.lapizza.quantity))        
         }
         fetchData()
     }, [props])
