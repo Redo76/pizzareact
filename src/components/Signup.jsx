@@ -1,6 +1,5 @@
 import React,{useState, useEffect} from 'react';
 import {Button, Form, Container, Alert} from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 
@@ -16,6 +15,7 @@ function Signup() {
 
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState([]);
+    const [emailCreated, setEmailCreated] = useState(false);
 
     const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
     
@@ -31,12 +31,14 @@ function Signup() {
         let detectedError;
         setErrorMessage([]);
         let tableErrorMessage = [];
+
+        setEmailCreated(false)
         
         if (!validPassword.test(password)) {
             tableErrorMessage.push("Entrez un mot de passe valide.")
             detectedError = true;
         }
-        
+
         if (password != confPassword) {
             tableErrorMessage.push("Les mots de passe ne correspondent pas.")
             detectedError = true;
@@ -54,6 +56,7 @@ function Signup() {
         }
         else{
             setError(false);
+            setEmailCreated(true);
             console.log(prenom);
             console.log(nom);
             try {
@@ -65,10 +68,11 @@ function Signup() {
                         "last_name" : nom,
                         "password" : password
                     })
-            } catch (error) {
-                console.log(error);
-            }
+                } catch (error) {
+                    console.log(error);
+                }
         }
+        console.log(emailCreated);
     }
 
   return (
@@ -117,6 +121,15 @@ function Signup() {
                         ))}
                     </Alert>
                     : 
+                    ""
+                }
+
+                {   emailCreated 
+                    ?
+                    <Alert variant='success' className='mt-3'>
+                        Vous avez créez un compte utilisateur.
+                    </Alert>
+                    :
                     ""
                 }
             </Form>
