@@ -2,6 +2,7 @@
 var express = require('express');
 var path = require('path');
 const cors = require('cors');
+const bp = require('body-parser')
 
 // Database
 var mongo = require("mongodb");
@@ -15,6 +16,8 @@ const usersRouter = require('./routes/users')
 
 const app = express();
 
+app.use(bp.json())
+app.use(bp.urlencoded({ extended: true }))
 
 app.use(express.static(path.join(__dirname, 'build')));
 

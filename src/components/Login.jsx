@@ -17,7 +17,7 @@ const Login = () => {
   return (
     <>
         <Container>
-            <Form className='mt-3'>
+            <Form className='mt-3' action='/users/:id' method='get'>
             <Form.Group className="mb-3" >
                 <Form.Label>Adresse E-mail</Form.Label>
                 <Form.Control type="email" placeholder="Entrez votre mail" />
