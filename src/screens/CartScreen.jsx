@@ -54,9 +54,16 @@ function CartScreen() {
             </Row>
             <div className='d-flex justify-content-end align-items-center my-3'>
                 <h4 className='mx-5'>Prix total : {total} €</h4>
-                <LinkContainer to={"/Order"}>
-                    <button className='btn btn-primary'>Confirmer la commande</button>
-                </LinkContainer>
+                {   sessionStorage.getItem("loggedUser")
+                    ?
+                    <LinkContainer to={"/Order"}>
+                        <button className='btn btn-primary'>Confirmer la commande</button>
+                    </LinkContainer>
+                    :
+                    <LinkContainer to={"/Login"}>
+                        <button className='btn btn-primary'>Confirmer la commande</button>
+                    </LinkContainer>
+                }
             </div>
         </Container>
     </>

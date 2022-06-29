@@ -69,6 +69,7 @@ router.post("/connect", function(req,res) {
                 if (result) {
                     delete docs.password
                     res.json(docs);
+                    console.log(docs);
                 }
                 else{ 
                     res.send("WrongPassword")

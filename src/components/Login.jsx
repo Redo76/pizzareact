@@ -1,6 +1,8 @@
 import React,{useState, useEffect} from 'react';
 import {Button, Form, Container, Alert} from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+
 
 
 const Login = () => {
@@ -11,6 +13,8 @@ const Login = () => {
     const [errorPassword, setErrorPassword] = useState(false)
     
     const [connected, setConnected] = useState(false);
+
+    let navigate = useNavigate();
 
     
     const connect = async () =>{
@@ -27,18 +31,26 @@ const Login = () => {
         }
         data = await fetchData();
 
-        console.log(data);
-
-        if (data == "il existe pas !!" ) {
+        
+        if (email == "" || password == "") {
             setErrorEmail(true);
         }
-        if (data == "WrongPassword" ) {
+        
+        else if (data == "il existe pas !!" ) {
+            setErrorEmail(true);
+        }
+        else if (data == "WrongPassword" ) {
             console.log(data.password);
             setErrorPassword(true);
-        }else{
-            setConnected(true)
         }
+        else {
+            navigate("/", { replace: true })
+            sessionStorage.setItem('loggedUser', true);
         }
+            console.log(data);
+            console.log(email);
+        console.log(password);
+    }
 
 
 

@@ -38,18 +38,17 @@ function Signup() {
             detectedError = true;
         }
 
-        if (password != confPassword) {
+        else if (password != confPassword) {
             tableErrorMessage.push("Les mots de passe ne correspondent pas.")
             detectedError = true;
         }
-        console.log("ERREUR ??? " + detectedError);
-
-        if (data == "AlreadyEmail"){
+        
+        else if (data == "AlreadyEmail"){
             tableErrorMessage.push("Cet email existe déja.")
             detectedError = true;
         }
-
-        if (detectedError) {
+        
+        else if (detectedError) {
             setError(true)
             setErrorMessage(tableErrorMessage)
         }
@@ -70,11 +69,12 @@ function Signup() {
                 } catch (error) {
                     console.log(error);
                 }
+            }
+            console.log(emailCreated);
+            console.log("ERREUR ??? " + detectedError);
         }
-        console.log(emailCreated);
-    }
-
-  return (
+        
+        return (
     <>
         <Container>
             <Form id='signupForm' className='mt-3' name='signupFrom'>
