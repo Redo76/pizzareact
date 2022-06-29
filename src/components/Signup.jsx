@@ -4,7 +4,6 @@ import axios from 'axios';
 
 
 function Signup() {
-    const [data, setData] = useState([]);
 
     const [email, setEmail] = useState("");
     const [pseudo, setPseudo] = useState("");

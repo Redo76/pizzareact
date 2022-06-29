@@ -14,34 +14,31 @@ function Product(props) {
         const fetchData = async () =>{
             let fetch = await axios("http://localhost:8080/pizzas/" + props.lapizza._id);
             setData(fetch.data);
-            setTaille(props.lapizza.varients)
-            setQuantite(parseInt(props.lapizza.quantity))        
+            setTaille(props.lapizza.varients);
+            setQuantite(props.lapizza.quantity)
         }
         fetchData()
     }, [props])
-
+    
     const updatePizza = (e) =>{
-        let cart = JSON.parse( localStorage.getItem("cart"));
+        setQuantite(e.target.value)
+        let cart = JSON.parse(localStorage.getItem("cart"));
         let alreadyPizza = cart.find(pizza => (pizza._id == props.lapizza._id) && (pizza.varients == taille))
-            alreadyPizza.quantity = parseInt(e.target.value);
-            localStorage.setItem("cart", JSON.stringify(cart))
-        console.table(cart);
-        setQuantite(e.target.value);
-        props.remove();
+        alreadyPizza.quantity = parseInt(e.target.value);
+        localStorage.setItem("cart", JSON.stringify(cart))
+        props.updateCart(cart);
         
     } 
 
     const deletePizza = () =>{
         let cart = JSON.parse( localStorage.getItem("cart"));
-        console.log(props.lapizza.varients);
-
+        
         let alreadyPizza = cart.find(pizza => (pizza._id == props.lapizza._id) && (pizza.varients == taille))
+        console.log(props.lapizza.quantity);
         console.log(alreadyPizza);
-
         let newCart =cart.filter( pizza => pizza != alreadyPizza);
 
         localStorage.setItem("cart", JSON.stringify(newCart));
-
         props.updateCart(newCart);
         console.table(newCart);
     }

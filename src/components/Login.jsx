@@ -1,35 +1,88 @@
 import React,{useState, useEffect} from 'react';
-import {Button, Form, Container} from 'react-bootstrap';
+import {Button, Form, Container, Alert} from 'react-bootstrap';
 import axios from 'axios';
 
 
 const Login = () => {
-    const [data, setData] = useState([]);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    useEffect(() =>{
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [errorPassword, setErrorPassword] = useState(false)
+    
+    const [connected, setConnected] = useState(false);
+
+    
+    const connect = async () =>{
+        let data;
+        setConnected(false);
         const fetchData = async () => {
-            let fetch = await axios('http://localhost:8080/users');
-            setData(fetch.data);
+            let fetch = await axios.post('http://localhost:8080/users/connect', {
+                "email" : email,
+                "password" : password
+            });
+            console.log(email);
+            console.log(fetch.data);
+            return fetch.data;
         }
-        fetchData();
-    }, [])
+        data = await fetchData();
+
+        console.log(data);
+
+        if (data == "il existe pas !!" ) {
+            setErrorEmail(true);
+        }
+        if (data == "WrongPassword" ) {
+            console.log(data.password);
+            setErrorPassword(true);
+        }else{
+            setConnected(true)
+        }
+        }
+
+
 
   return (
     <>
         <Container>
-            <Form className='mt-3' action='/users/:id' method='get'>
+            <Form className='mt-3'>
             <Form.Group className="mb-3" >
                 <Form.Label>Adresse E-mail</Form.Label>
-                <Form.Control type="email" placeholder="Entrez votre mail" />
+                <Form.Control type="email" placeholder="Entrez votre adresse email" onChange={(e)=> setEmail(e.target.value)}/>
+                {   errorEmail
+                    ?
+                    <Alert variant='danger' className='mt-3'>
+                        <p>Email Invalide.</p>
+                    </Alert>
+                    :
+                    ""
+                }
             </Form.Group>
 
             <Form.Group className="mb-3">
                 <Form.Label>Mot de passe</Form.Label>
-                <Form.Control type="password" placeholder="Mot de passe" />
+                <Form.Control type="password" placeholder="Mot de passe" onChange={(e)=> setPassword(e.target.value)}/>
+                {   errorPassword
+                    ?
+                    <Alert variant='danger' className='mt-3'>
+                        <p>Mot de passe Incorrect</p>
+                    </Alert>
+                    :
+                    ""
+                }
             </Form.Group>
 
-            <Button variant="primary" type="submit">Submit</Button>
+            <Button variant="primary" type="button" onClick={connect}>Connexion</Button>
+            {   connected
+                    ?
+                    <Alert variant='success' className='mt-3'>
+                        <p>Vous êtes connecté!</p>
+                    </Alert>
+                    :
+                    ""
+                }
             </Form>
+
         </Container>
     </>
   )
