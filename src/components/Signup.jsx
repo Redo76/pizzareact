@@ -1,9 +1,11 @@
 import React,{useState, useEffect} from 'react';
 import {Button, Form, Container, Alert} from 'react-bootstrap';
 import axios from 'axios';
-
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+
+    let navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [pseudo, setPseudo] = useState("");
@@ -70,6 +72,7 @@ function Signup() {
                     console.log(error);
                 }
             }
+            navigate("/Login", { replace: true })
             console.log(emailCreated);
             console.log("ERREUR ??? " + detectedError);
         }

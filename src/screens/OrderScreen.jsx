@@ -43,7 +43,6 @@ function OrderScreen() {
         }
     },[data])
 
-
   return (
     <>
         <Container className='d-flex'>
@@ -81,7 +80,7 @@ function OrderScreen() {
                             </tr>
                         </tbody>
                     </Table>
-                    {total ? <Paypal amount={total}/> : ""}
+                    {total ? <Paypal amount={total} cart={cart}/> : ""}
                 </div>
             </div>
         </Container>

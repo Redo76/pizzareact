@@ -12,7 +12,8 @@ var db = monk("localhost:27017/Pizzas");
 
 // var usersRouter = require('./routes/users');
 const pizzasRouter = require('./routes/pizzas');
-const usersRouter = require('./routes/users')
+const usersRouter = require('./routes/users');
+const ordersRouter = require('./routes/orders');
 
 const app = express();
 
@@ -30,5 +31,6 @@ app.use(function(req,res,next){
 
 app.use('/pizzas', pizzasRouter);
 app.use('/users', usersRouter)
+app.use('/orders', ordersRouter)
 
 app.listen(process.env.PORT || 8080);

@@ -45,7 +45,7 @@ const Login = () => {
         }
         else {
             navigate("/", { replace: true })
-            sessionStorage.setItem('loggedUser', true);
+            sessionStorage.setItem('loggedUser', JSON.stringify(data));
         }
             console.log(data);
             console.log(email);

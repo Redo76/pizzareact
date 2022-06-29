@@ -1,11 +1,10 @@
+import axios from 'axios';
 import React, {useState} from 'react'
 import ReactDOM from "react-dom";
 
 const Paypal = (props) => {
     
     const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
-    
-    console.log(props.amount)
 
     const createOrder = (data, actions) => {
     return actions.order.create({
@@ -19,8 +18,13 @@ const Paypal = (props) => {
     });
     };
 
-    const onApprove = (data, actions) => {
-    return actions.order.capture();
+    const onApprove = async (data, actions) => {
+        let res = await axios.post("http://localhost:8080/orders/addOrder",{
+            "paypal" : data,
+            "user" : sessionStorage.getItem("loggedUser"),
+            "cart" : props.cart 
+        })
+        return actions.order.capture();
     };
 
 
