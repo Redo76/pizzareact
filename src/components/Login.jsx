@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import {Button, Form, Container, Alert} from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 
 
@@ -15,7 +15,7 @@ const Login = () => {
     const [connected, setConnected] = useState(false);
 
     let navigate = useNavigate();
-
+    const {state} = useLocation();
     
     const connect = async () =>{
         let data;
@@ -44,7 +44,7 @@ const Login = () => {
             setErrorPassword(true);
         }
         else {
-            navigate(-1, { replace: true })
+            navigate("/cart", { replace: true })
             sessionStorage.setItem('loggedUser', JSON.stringify(data));
         }
             console.log(data);
@@ -57,7 +57,15 @@ const Login = () => {
   return (
     <>
         <Container>
-            <Form className='mt-3'>
+                {   state 
+                    ?
+                    <Alert variant='success' className='mt-3'>
+                        Vous avez créé un compte utilisateur.
+                    </Alert>
+                    :
+                    ""
+                }
+            <Form className='my-3'>
             <Form.Group className="mb-3" >
                 <Form.Label>Adresse E-mail</Form.Label>
                 <Form.Control type="email" placeholder="Entrez votre adresse email" onChange={(e)=> setEmail(e.target.value)}/>
@@ -94,7 +102,7 @@ const Login = () => {
                     ""
                 }
             </Form>
-
+            <a href='/Signup' style={{textDecoration: "none"}}>Vous n'avez pas de compte ? Inscrivez vous !</a>
         </Container>
     </>
   )

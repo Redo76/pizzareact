@@ -32,14 +32,12 @@ function Signup() {
         let detectedError;
         setErrorMessage([]);
         let tableErrorMessage = [];
-
         setEmailCreated(false)
         
         if (!validPassword.test(password)) {
             tableErrorMessage.push("Entrez un mot de passe valide.")
             detectedError = true;
         }
-
         else if (password != confPassword) {
             tableErrorMessage.push("Les mots de passe ne correspondent pas.")
             detectedError = true;
@@ -50,9 +48,11 @@ function Signup() {
             detectedError = true;
         }
         
-        else if (detectedError) {
+        if (detectedError) {
+            console.log(45772875);
             setError(true)
-            setErrorMessage(tableErrorMessage)
+            setErrorMessage(tableErrorMessage) 
+            return
         }
         else{
             setError(false);
@@ -71,16 +71,16 @@ function Signup() {
                 } catch (error) {
                     console.log(error);
                 }
+                navigate("/Login", { state: true })
+                console.log(emailCreated);
+                console.log("ERREUR ??? " + detectedError);
             }
-            navigate("/Login", { replace: true })
-            console.log(emailCreated);
-            console.log("ERREUR ??? " + detectedError);
         }
         
         return (
     <>
         <Container>
-            <Form id='signupForm' className='mt-3' name='signupFrom'>
+            <Form id='signupForm' onSubmit={validity} className='mt-3' name='signupFrom'>
                 <Form.Group className="mb-3">
                     <Form.Label>Adresse e-mail</Form.Label>
                     <Form.Control type="email" placeholder="Entrez votre mail" name='email' required onChange={(e) =>setEmail(e.target.value)}/>
@@ -111,7 +111,7 @@ function Signup() {
                     <Form.Control type="password" placeholder="confirmer le mot de passe" name='confPassword' required onChange={(e) => setConfPassword(e.target.value)}/>
                 </Form.Group>
 
-                <Button variant="primary" type="button" onClick={validity}>Confirmer</Button>
+                <Button variant="primary" type="submit" >Confirmer</Button>
 
                 {   error
                     ? 
@@ -126,14 +126,7 @@ function Signup() {
                     ""
                 }
 
-                {   emailCreated 
-                    ?
-                    <Alert variant='success' className='mt-3'>
-                        Vous avez créez un compte utilisateur.
-                    </Alert>
-                    :
-                    ""
-                }
+                
             </Form>
         </Container>
     </>

@@ -57,13 +57,13 @@ function Product(props) {
                     </Col>
                     <Col>
                         <h6>
-                            Quantité : <select value={quantite} onChange={(e)=> updatePizza(e)}>
-                                        {[...Array(10).keys()].map((v, i) => (
+                            Quantité : <input type="number" value={quantite} onChange={(e)=> updatePizza(e)}>
+                                        {/* {[...Array(10).keys()].map((v, i) => (
                                             <option value={i + 1}>
                                                 {i + 1}
                                             </option>
-                                        ))}
-                                    </select>
+                                        ))} */}
+                                    </input>
                         </h6>
                     </Col>
                 </Row>
