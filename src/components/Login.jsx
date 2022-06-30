@@ -44,7 +44,7 @@ const Login = () => {
             setErrorPassword(true);
         }
         else {
-            navigate("/", { replace: true })
+            navigate(-1, { replace: true })
             sessionStorage.setItem('loggedUser', JSON.stringify(data));
         }
             console.log(data);

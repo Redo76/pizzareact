@@ -11,6 +11,7 @@ import CartScreen from './screens/CartScreen';
 import OrderScreen from './screens/OrderScreen';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import PaymentScreen from './screens/PaymentScreen';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path='/Order' element={<OrderScreen />}/>
         <Route path='/Login' element={<Login />}/>
         <Route path='/Signup' element={<Signup />}/>
+        <Route path='/Ordercomplete' element={<PaymentScreen />}/>
       </Routes>
     </BrowserRouter>
   );

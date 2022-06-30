@@ -26,20 +26,20 @@ function NavBar() {
                     {   sessionStorage.getItem("loggedUser")
                         ?
                         <LinkContainer to={"/"}>
-                        <Nav.Link  onClick={logout}>Logout</Nav.Link>
+                        <Nav.Link  onClick={logout}>Déconnexion</Nav.Link>
                         </LinkContainer>
                         :
                         <>
                             <LinkContainer to={"/Signup"}>
-                                <Nav.Link>Signup</Nav.Link>
+                                <Nav.Link>Inscription</Nav.Link>
                             </LinkContainer>
                             <LinkContainer to={"/login"}>
-                                <Nav.Link>Login</Nav.Link>
+                                <Nav.Link>Connexion</Nav.Link>
                             </LinkContainer>
                         </>
                     }
                     <LinkContainer to={"/Cart"}>
-                        <Nav.Link>Cart</Nav.Link>
+                        <Nav.Link>Panier</Nav.Link>
                     </LinkContainer>
                 </Nav>
             </Navbar.Collapse>

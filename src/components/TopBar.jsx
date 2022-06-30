@@ -14,16 +14,16 @@ const TopBar = () => {
                     </h6>
                     <Nav className="ms-auto">
                         <LinkContainer to="/" activeClassName>
-                            <Nav.Link>Home</Nav.Link>
+                            <Nav.Link>Accueil</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="about" activeClassName>
-                            <Nav.Link>About Us</Nav.Link>
+                            <Nav.Link>A propos</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="contact" activeClassName>
                             <Nav.Link>Contact</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="Policy" activeClassName>
-                            <Nav.Link>Terms and Policy</Nav.Link>
+                            <Nav.Link>Conditions d'utilisation</Nav.Link>
                         </LinkContainer>
                     </Nav>
                 </Container>
